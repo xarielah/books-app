@@ -1,10 +1,11 @@
-import { bookservice } from "../../services/book.service.js";
+import { bookService, } from "../../services/book.service.js";
 
 const { useParams } = ReactRouterDOM;
 const { useState, useEffect } = React;
 
 export function BookDetails() {
     const [book, setBook] = useState();
+    console.log("🚀 ~ BookDetails ~ book:", book)
     const { bookId } = useParams();
 
     useEffect(() => {
@@ -12,7 +13,7 @@ export function BookDetails() {
     }, [])
 
     function getBook() {
-        bookservice.get(bookId)
+        bookService.get(bookId)
             .then(setBook)
             .catch(err => {
                 setBook(null)
@@ -24,7 +25,8 @@ export function BookDetails() {
     if (book === null) return <h2>Book not found</h2>
     return (
         <section className="book-details">
-            <h2>Book Details</h2>
+            {book.listPrice.isOnSale && <div className="sale">Book is on SALE!</div>}
+            <h2>{book.title}'s Details</h2>
         </section>
     )
 }   

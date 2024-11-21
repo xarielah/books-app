@@ -4,7 +4,10 @@ export function BookPreview({ book }) {
     console.log("🚀 ~ BookPreview ~ book:", book)
     return (
         <div className="book-preview">
-            <img src={book.thumbnail} alt={book.title + "'s cover"} />
+            <div className="book-cover">
+                {book.listPrice.isOnSale && <div className="sale">ON<b>SALE</b>!</div>}
+                <img src={book.thumbnail} alt={book.title + "'s cover"} />
+            </div>
             <h3>{book.title} ({book.publishedDate})</h3>
             <p>{book.authors.join(', ')}</p>
             <p>{book.subtitle}</p>

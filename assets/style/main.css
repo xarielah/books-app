@@ -216,12 +216,57 @@ a.active {
 
 /* Books */
 
+.book-filter .input {
+	padding: .5em 1.5em;
+	font-size: 1.25em;
+	margin: 0.5em 0;
+	border: 1px solid var(--gray2);
+	border-radius: 50px;
+}
+
+.book-filter input {
+	width: 100%;
+}
+
+.book-filter {
+	display: flex;
+	gap: 1em;
+}
+
+.book-details .sale {
+	background-color: red;
+	color: white;
+	padding: 0.5em;
+}
+
+.book-preview .book-cover {
+	position: relative;
+}
+
+.book-filter {
+	margin: 100px 0;
+}
+
+.book-preview .sale {
+	position: absolute;
+	background-color: red;
+	color: white;
+	padding: 0.5em;
+	border-radius: 100%;
+	font-size: .8em;
+	aspect-ratio: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: -30px;
+	left: -40px;
+}
+
 .book-index .book-list {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	gap: 1em;
-	align-items: center;
-	justify-content: center;
+	align-items: flex-start;
 }
 
 .book-index .book-preview {
