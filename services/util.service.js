@@ -7,7 +7,8 @@ export const utilService = {
     getDayName,
     getMonthName,
     animateCSS,
-    debounce
+    debounce,
+    capitalize
 }
 
 function makeId(length = 6) {
@@ -82,4 +83,8 @@ function debounce(func, wait = 500) {
             func(...args);
         }, wait);
     }
+}
+
+export function capitalize(/** @type {string} */str) {
+    return str.charAt(0).toUpperCase() + str.substring(1);
 }

@@ -247,6 +247,38 @@ a.active {
 	margin: 100px 0;
 }
 
+.book-preview .authors {
+	font-style: italic;
+	background-color: #fff;
+	width: 100%;
+	text-align: center;
+	padding: 0.5em;
+}
+
+.reader-level {
+	text-align: center;
+	padding: .25em 0.5em;
+	margin-bottom: .35em;
+	font-style: italic;
+	color: white;
+	border-radius: 8px;
+	white-space: nowrap;
+	font-size: .8em;
+	width: 100%;
+}
+
+.serious-reader {
+	background-color: #ff000099;
+}
+
+.decent-reader {
+	background-color: #ffa50099;
+}
+
+.light-reader {
+	background-color: #00800099;
+}
+
 .book-preview .sale {
 	position: absolute;
 	background-color: red;

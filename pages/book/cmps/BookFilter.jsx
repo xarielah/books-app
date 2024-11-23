@@ -1,4 +1,4 @@
-import { utilService } from "../../../services/util.service.js";
+import { capitalize, utilService } from "../../../services/util.service.js";
 
 const { useState, useEffect, useCallback } = React;
 
@@ -29,7 +29,7 @@ export function BookFilter({ onFilterUpdate }) {
         <section className="book-filter">
             <input value={filterValue} className="input" type="text" placeholder={`Search by ${filterType}...`} onChange={onFilterValueChange} />
             <select value={filterType} className="input" onChange={onFilterTypeChange}>
-                {Object.values(filterTypes).map(type => <option key={type} value={type}>{type}</option>)}
+                {Object.values(filterTypes).map(type => <option key={type} value={type}>{capitalize(type)}</option>)}
             </select>
         </section>
     )

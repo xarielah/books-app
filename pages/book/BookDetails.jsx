@@ -1,4 +1,5 @@
 import { bookService, } from "../../services/book.service.js";
+import { capitalize } from "../../services/util.service.js";
 
 const { useParams } = ReactRouterDOM;
 const { useState, useEffect } = React;
@@ -26,7 +27,7 @@ export function BookDetails() {
     return (
         <section className="book-details">
             {book.listPrice.isOnSale && <div className="sale">Book is on SALE!</div>}
-            <h2>{book.title}'s Details</h2>
+            <h2>{capitalize(book.title)}'s Details</h2>
         </section>
     )
 }   

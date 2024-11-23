@@ -9,7 +9,7 @@ export function AppHeader() {
                 <div>
                     <span style={{ marginLeft: "1em" }}><Link to="/home">Home</Link></span>
                     <span style={{ marginLeft: "1em" }}><Link to="/about">About</Link></span>
-                    <span style={{ marginLeft: "1em" }}><Link to="/book">Books</Link></span>
+                    <span style={{ marginLeft: "1em" }}><Link to="/book">Catalouge</Link></span>
                 </div>
             </section>
         </header>
