@@ -1,20 +1,18 @@
+import { filterTypes } from "../../../services/book-utils.service.js";
 import { capitalize, utilService } from "../../../services/util.service.js";
 
 const { useState, useEffect, useCallback } = React;
 
-const filterTypes = Object.freeze({
-    TITLE: 'title',
-    AUTHORS: 'authors',
-    IS_ON_SALE: 'sale',
-})
 
-export function BookFilter({ onFilterUpdate }) {
-    const [filterType, setFilterType] = useState(filterTypes.TITLE);
-    const [filterValue, setFilterValue] = useState('');
+
+export function BookFilter({ onFilterUpdate, initialType = filterTypes.TITLE, initialValue = "" }) {
+    const [filterType, setFilterType] = useState(initialType);
+    const [filterValue, setFilterValue] = useState(initialValue);
     const setFilterDebounce = useCallback(utilService.debounce(onFilterUpdate), [])
 
     useEffect(() => {
-        setFilterDebounce({ [filterType]: filterValue })
+        const filter = filterValue.length ? { type: filterType, value: filterValue.trim() } : {}
+        setFilterDebounce(filter);
     }, [filterValue, filterType])
 
     function onFilterTypeChange({ target: { value } }) {

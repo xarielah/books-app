@@ -22,19 +22,30 @@ function query(filterBy = {}) {
         .then(books => {
             if (filterBy.title) {
                 const regExp = new RegExp(filterBy.title, 'i')
-                books = books.filter(book => regExp.test(book.title))
+                return books.filter(book => regExp.test(book.title))
             }
 
-            if (filterBy.isOnSale) {
-                books = books.filter(book => book.listPrice.isOnSale === filterBy.isOnSale)
+            if (filterBy.subtitle) {
+                const regExp = new RegExp(filterBy.subtitle, 'i')
+                return books.filter(book => regExp.test(book.subtitle))
+            }
+
+            if (filterBy.description) {
+                const regExp = new RegExp(filterBy.description, 'i')
+                return books.filter(book => regExp.test(book.description))
+            }
+
+            if (filterBy.categories) {
+                const regExp = new RegExp(filterBy.categories, 'i')
+                return books.filter(book => book.categories.some(category => regExp.test(category)))
             }
 
             if (filterBy.authors) {
                 const regExp = new RegExp(filterBy.authors, 'i')
-                books = books.filter(book => book.authors.some(author => regExp.test(author)))
+                return books.filter(book => book.authors.some(author => regExp.test(author)))
             }
 
-            return books
+            return books;
         })
 }
 

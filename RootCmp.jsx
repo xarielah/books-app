@@ -1,5 +1,6 @@
 
 import { AppHeader } from "./cmps/AppHeader.jsx"
+import { NotFound } from "./cmps/NotFound.jsx"
 import { AboutUs } from "./pages/about/AboutUs.jsx"
 import { BookDetails } from "./pages/book/BookDetails.jsx"
 import { BookEdit } from "./pages/book/BookEdit.jsx"
@@ -23,6 +24,8 @@ export function RootCmp() {
                         <Route path="/book" element={<BookIndex />} />
                         <Route path="/book/:bookId" element={<BookDetails />} />
                         <Route path="/book/edit" element={<BookEdit />} />
+                        <Route path="/book/edit/:bookId" element={<BookEdit />} />
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>
             </section>

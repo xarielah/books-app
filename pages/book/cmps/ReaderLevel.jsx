@@ -23,7 +23,7 @@ export function ReaderLevel({ pageCount }) {
 
     return (
         <div className={`reader-level ${level.levelClass}`}>
-            <span>{level.label}</span>
+            <span>For {level.label}s</span>
         </div>
     )
 }
