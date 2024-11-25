@@ -10,6 +10,7 @@ export function BookFilter({ onFilterUpdate, initialType = filterTypes.TITLE, in
     const [filterValue, setFilterValue] = useState(initialValue);
     const setFilterDebounce = useCallback(utilService.debounce(onFilterUpdate), [])
 
+
     useEffect(() => {
         const filter = filterValue.length ? { type: filterType, value: filterValue.trim() } : {}
         setFilterDebounce(filter);

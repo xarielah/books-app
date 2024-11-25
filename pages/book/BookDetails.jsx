@@ -1,6 +1,6 @@
 import { Loading } from "../../cmps/Loading.jsx";
 import { calcFullPrice, fixedPrice, getBookTags } from "../../services/book-utils.service.js";
-import { bookService, } from "../../services/book.service.js";
+import { bookService, getSiblingBooks, } from "../../services/book.service.js";
 import { capitalize } from "../../services/util.service.js";
 import { BookTag } from "./cmps/BookTag.jsx";
 
@@ -9,16 +9,20 @@ const { useState, useEffect } = React;
 
 export function BookDetails() {
     const [book, setBook] = useState();
+    const [siblings, setSiblings] = useState();
     const { bookId } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         getBook();
-    }, [])
+    }, [bookId])
 
     function getBook() {
         bookService.get(bookId)
-            .then(setBook)
+            .then((book) => {
+                getSiblingBooks(bookId).then(setSiblings)
+                setBook(book)
+            })
             .catch(err => {
                 setBook(null)
                 console.log("Cant get book:", err)
@@ -35,9 +39,17 @@ export function BookDetails() {
         navigate("/book")
     }
 
+    const handleNextBook = () => {
+        navigate(`/book/${siblings.nextBook}`);
+    }
+
+    const handlePrevBook = () => {
+        navigate(`/book/${siblings.prevBook}`);
+    }
+
     return (
         <section className="book-details page-section">
-            <button onClick={handleBackClick}>Back</button>
+            <button onClick={handleBackClick}>Back to all books</button>
             <article className="book-details-container">
                 <div>
                     <img src={book.thumbnail} alt={book.title + "'s cover"} />
@@ -63,6 +75,12 @@ export function BookDetails() {
                     </footer>
                 </section>
             </article >
+            {siblings &&
+                <React.Fragment>
+                    <button onClick={handlePrevBook}>Prev</button>
+                    <button onClick={handleNextBook}>Next</button>
+                </React.Fragment>
+            }
         </section >
     )
 }   
