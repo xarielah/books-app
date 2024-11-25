@@ -73,6 +73,19 @@ function getDefaultFilter(filterBy = { txt: '', minSpeed: 0 }) {
     return { txt: filterBy.txt, minSpeed: filterBy.minSpeed }
 }
 
+export function getSiblingBooks(bookId) {
+    return storageService.query(BOOK_KEY).then(books => {
+        const bookIdx = books.findIndex(book => book.id === bookId)
+        if (bookIdx < 0) return []
+        const rightSiblingIdx = bookIdx + 1 > books.length - 1 ? books.length - 1 : bookIdx + 1
+        const leftSiblingIdx = bookIdx - 1 < 0 ? 0 : bookIdx - 1
+        return {
+            prevBook: books[leftSiblingIdx].id,
+            nextBook: books[rightSiblingIdx].id
+        }
+    })
+}
+
 function _createBooks() {
     let books = utilService.loadFromStorage(BOOK_KEY)
     if (!books || !books.length) {
