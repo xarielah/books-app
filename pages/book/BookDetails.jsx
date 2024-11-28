@@ -20,8 +20,9 @@ export function BookDetails() {
     function getBook() {
         bookService.get(bookId)
             .then((book) => {
-                getSiblingBooks(bookId).then(setSiblings)
                 setBook(book)
+                console.log(book)
+                getSiblingBooks(bookId).then(setSiblings)
             })
             .catch(err => {
                 setBook(null)
@@ -49,7 +50,10 @@ export function BookDetails() {
 
     return (
         <section className="book-details page-section">
-            <button onClick={handleBackClick}>Back to all books</button>
+            <div>
+                <button onClick={handleBackClick}>Back to all books</button>
+                <button onClick={() => navigate(`/book/edit/${book.id}`)}>Edit</button>
+            </div>
             <article className="book-details-container">
                 <div>
                     <img src={book.thumbnail} alt={book.title + "'s cover"} />
@@ -69,7 +73,7 @@ export function BookDetails() {
                         <span>Only for </span>
                         {book.listPrice.isOnSale ?
                             <span>
-                                <s>{calcFullPrice(book.listPrice.amount)}</s> {fixedPrice(book.listPrice.amount)} {book.listPrice.currencyCode}
+                                <s style={{ color: "#a8a8a8" }}>{calcFullPrice(book.listPrice.amount)}</s> {fixedPrice(book.listPrice.amount)} {book.listPrice.currencyCode}
                             </span> :
                             <span>{fixedPrice(book.listPrice.amount)} {book.listPrice.currencyCode}</span>}
                     </footer>

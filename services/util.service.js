@@ -8,7 +8,8 @@ export const utilService = {
     getMonthName,
     animateCSS,
     debounce,
-    capitalize
+    capitalize,
+    generateRandomName
 }
 
 function makeId(length = 6) {
@@ -21,6 +22,26 @@ function makeId(length = 6) {
 
     return txt
 }
+
+function generateRandomName() {
+    const firstNames = [
+        "Emma", "Liam", "Olivia", "Noah", "Ava",
+        "James", "Isabella", "Oliver", "Sophia", "William",
+        "Mia", "Lucas", "Charlotte", "Henry", "Amelia"
+    ];
+
+    const lastNames = [
+        "Smith", "Johnson", "Williams", "Brown", "Jones",
+        "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
+        "Lee", "Wilson", "Anderson", "Taylor", "Thomas"
+    ];
+
+    const randomFirst = firstNames[Math.floor(Math.random() * firstNames.length)];
+    const randomLast = lastNames[Math.floor(Math.random() * lastNames.length)];
+
+    return `${randomFirst} ${randomLast}`;
+}
+
 
 function makeLorem(size = 100) {
     const words = ['The sky', 'above', 'the port', 'was', 'the color', 'of nature', 'tuned', 'to', 'a live channel', 'All', 'this happened', 'more or less', 'I', 'had', 'the story', 'bit by bit', 'from various people', 'and', 'as generally', 'happens', 'in such cases', 'each time', 'it', 'was', 'a different story', 'a pleasure', 'to', 'burn']

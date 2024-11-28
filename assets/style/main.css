@@ -84,7 +84,8 @@ button:hover {
 	transition: 0.3s;
 }
 
-input:focus {
+input:focus,
+textarea-input:focus {
 	background-color: var(--clr1bg);
 	transition: background-color 1s;
 }
@@ -224,6 +225,14 @@ a.active {
 	border-radius: 50px;
 }
 
+.textarea-input {
+	padding: 1.5em;
+	font-size: 1.25em;
+	margin: 0.5em 0;
+	border: 1px solid var(--gray2);
+	border-radius: 20px;
+}
+
 .book-filter input {
 	width: 100%;
 }
@@ -243,8 +252,7 @@ a.active {
 }
 
 .book-edit-form {
-	display: flex;
-	flex-direction: column;
+	display: grid;
 	gap: 1em;
 }
 

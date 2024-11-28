@@ -1,29 +1,43 @@
 import { Loading } from "../../cmps/Loading.jsx";
 import { bookService } from "../../services/book.service.js";
-import { capitalize } from "../../services/util.service.js";
 
 const { useState, useEffect } = React;
-const { useParams } = ReactRouterDOM;
+const { useParams, useNavigate } = ReactRouterDOM;
+
+const defaultValues = {
+    title: "",
+    description: "",
+    subtitle: "",
+    id: null
+}
 
 export function BookEdit() {
     const [book, setBook] = useState();
     const params = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const bookId = params.bookId;
         bookService.get(bookId)
             .then(setBook)
             .catch(err => {
-                setBook(null)
+                setBook(defaultValues)
                 console.log("Cant get book:", err)
             });
     }, [])
 
+    const handleSubmission = (e) => {
+        e.preventDefault();
+
+        bookService.save(book)
+            .then((bookCreated) => navigate(`/book/${bookCreated.id}`))
+    }
+
     if (book === undefined) return <Loading />
     return (
         <section className="book-edit page-section">
-            {book ? <h3>Editing book: {capitalize(book.title)}</h3> : <h3>Add New Book</h3>}
-            <form className="book-edit-form">
+            {book ? <h3>Edit Book</h3> : <h3>Add Book</h3>}
+            <form className="book-edit-form" onSubmit={handleSubmission}>
                 <label>
                     <span>Title</span>
                     <input className="input" type="text" placeholder="Title" value={book.title} onChange={e => setBook({ ...book, title: e.target.value })} />
@@ -34,9 +48,9 @@ export function BookEdit() {
                 </label>
                 <label>
                     <span>Description</span>
-                    <textarea className="input" placeholder="Description" value={book.description} onChange={e => setBook({ ...book, description: e.target.value })} />
+                    <textarea rows="10" className="textarea-input" placeholder="Description" value={book.description} onChange={e => setBook({ ...book, description: e.target.value })} />
                 </label>
-                <button>Save</button>
+                <button style={{ width: "max-content", margin: "0 auto" }}>Save</button>
             </form>
         </section>
     )

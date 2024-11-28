@@ -1,5 +1,4 @@
 import { storageService } from './async-storage.service.js'
-import { predefindBooks } from './predefined-books.js'
 import { utilService } from './util.service.js'
 
 const BOOK_KEY = 'bookDB'
@@ -10,7 +9,6 @@ export const bookService = {
     get,
     remove,
     save,
-    getEmptyBook,
     getDefaultFilter,
 }
 
@@ -61,13 +59,11 @@ function save(book) {
     if (book.id) {
         return storageService.put(BOOK_KEY, book)
     } else {
-        return storageService.post(BOOK_KEY, book)
+        const newlyCreatedBook = _createBook(book);
+        return storageService.post(BOOK_KEY, newlyCreatedBook)
     }
 }
 
-function getEmptyBook(vendor = '', maxSpeed = '') {
-    return { vendor, maxSpeed }
-}
 
 function getDefaultFilter(filterBy = { txt: '', minSpeed: 0 }) {
     return { txt: filterBy.txt, minSpeed: filterBy.minSpeed }
@@ -86,15 +82,40 @@ export function getSiblingBooks(bookId) {
     })
 }
 
-function _createBooks() {
-    let books = utilService.loadFromStorage(BOOK_KEY)
-    if (!books || !books.length) {
-        utilService.saveToStorage(BOOK_KEY, predefindBooks)
-    }
+function _createBook(book = {}) {
+    return ({
+        id: utilService.makeId(),
+        title: utilService.makeLorem(2),
+        subtitle: utilService.makeLorem(4),
+        authors: [
+            utilService.generateRandomName()
+        ],
+        publishedDate: utilService.getRandomIntInclusive(1950, 2024),
+        description: utilService.makeLorem(20),
+        pageCount: utilService.getRandomIntInclusive(20, 600),
+        language: "en",
+        listPrice: {
+            amount: utilService.getRandomIntInclusive(80, 500),
+            currencyCode: "EUR",
+            isOnSale: Math.random() > 0.7
+        },
+        ...book
+    })
 }
 
-function _createBook(vendor, maxSpeed = 250) {
-    const book = getEmptyBook(vendor, maxSpeed)
-    book.id = utilService.makeId()
-    return book
+function _createBooks() {
+    if (!localStorage.getItem(BOOK_KEY)) {
+        const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
+        const books = []
+        for (let i = 0; i < 20; i++) {
+            const book = _createBook();
+            books.push({
+                ...book,
+                categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
+                thumbnail: `https://coding-academy.org/books-photos/${i + 1}.jpg`,
+            })
+        }
+        console.log(books)
+        storageService.replaceMany(BOOK_KEY, books)
+    }
 }
