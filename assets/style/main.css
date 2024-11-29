@@ -181,15 +181,16 @@ textarea-input:focus {
 
 .app-header {
 	background-color: white;
-	color: #00800099;
-
+	color: #1b066699;
+	font-weight: bold;
+	font-size: 1.25em;
 }
 
 .header-container {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-
+	padding: 1em;
 }
 
 .header-container h1 {
@@ -293,7 +294,7 @@ a.active {
 .star {
 	width: 16px;
 	height: 16px;
-	opacity: .2;
+	opacity: .35;
 }
 
 .star-active {
@@ -396,12 +397,6 @@ a.active {
 
 .book-review-index h3 {
 	margin-top: 1em;
-}
-
-.review-preview-header {
-	display: flex;
-	align-items: center;
-	gap: 1em;
 }
 
 .star:nth-child(3):hover {

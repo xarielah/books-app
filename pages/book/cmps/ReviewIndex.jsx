@@ -9,13 +9,14 @@ export function ReviewIndex({ bookId }) {
     const [reviews, setReviews] = useState();
 
     useEffect(() => {
+        setReviews(undefined)
         reviewService.query(bookId)
             .then(setReviews)
             .catch(err => {
                 setReviews(null)
                 console.log("Cant get reviews:", err)
             });
-    }, [])
+    }, [bookId])
 
     const handleDeleteReview = (reviewId) => {
         reviewService.remove(reviewId)

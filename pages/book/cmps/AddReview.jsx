@@ -51,14 +51,14 @@ export function AddReview({ bookId, onAdd }) {
             <form className="book-review-form" onSubmit={handleSubmission}>
                 <label>
                     <span>Full Name</span>
-                    <input required className="input" name="fullname" placeholder="Full Name" value={review.fullname} onChange={handleChange} />
+                    <input style={{ fontSize: "1em" }} required className="input" name="fullname" placeholder="Full Name" value={review.fullname} onChange={handleChange} />
                 </label>
                 <label ref={ratingRef}>
                     <span style={{ marginBottom: ".5em" }}>Rating</span>
                     <StarsRating onRating={handleRating} rating={review.rating} />
                 </label>
                 <label>
-                    <span>Rate At</span>
+                    <span>Read At</span>
                     <input required className="input" name="readAt" placeholder="Read At" value={review.readAt} type="date" onChange={handleChange} />
                 </label>
                 <button style={{ width: "max-content", margin: "0 auto" }}>Submit Review</button>

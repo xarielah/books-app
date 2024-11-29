@@ -56,10 +56,10 @@ export function BookDetails() {
                 <button onClick={() => navigate(`/book/edit/${book.id}`)}>Edit</button>
             </div>
             <article className="book-details-container">
-                <div>
-                    <img src={book.thumbnail} alt={book.title + "'s cover"} />
+                {book.thumbnail && <div>
+                    <img style={{ borderRadius: "15px" }} src={book.thumbnail} alt={book.title + "'s cover"} />
                     {book.listPrice.isOnSale && <p className="sale">Book is on SALE!</p>}
-                </div>
+                </div>}
                 <section style={{ paddingTop: "1em" }}>
                     <header style={{ marginBottom: "2em" }}>
                         {bookTags.length && <div className="book-tags-container">
