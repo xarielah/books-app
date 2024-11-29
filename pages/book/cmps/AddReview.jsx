@@ -1,5 +1,9 @@
+import { Loading } from "../../../cmps/Loading.jsx";
+import { reviewService } from "../../../services/review.service.js";
+import { utilService } from "../../../services/util.service.js";
+import { StarsRating } from "./StarsRating.jsx";
 
-const { useState } = React;
+const { useState, useRef, useEffect } = React;
 
 const defaultValues = {
     rating: 0,
@@ -7,8 +11,14 @@ const defaultValues = {
     readAt: new Date()
 }
 
-export function AddReview({ bookId }) {
+export function AddReview({ bookId, onAdd }) {
     const [review, setReview] = useState(defaultValues);
+    const [submitting, setSubmitting] = useState(false);
+    const ratingRef = useRef();
+
+    useEffect(() => {
+        if (review.rating >= 0) ratingRef.current.children[0].style.color = "inherit";
+    }, [review.rating])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -17,26 +27,36 @@ export function AddReview({ bookId }) {
 
     const handleSubmission = (e) => {
         e.preventDefault();
+        if (review.rating === 0) {
+            utilService.animateCSS(ratingRef.current);
+            ratingRef.current.children[0].style.color = "red";
+            return;
+        }
+        setSubmitting(true)
+        reviewService.addReview(bookId, review)
+            .then((review) => {
+                onAdd(review)
+                setReview(defaultValues)
+            })
+            .finally(() => setSubmitting(false))
     }
-
-    const ratings = Array.from({ length: 5 });
 
     const handleRating = (rating) => {
-        setReview({ ...review, rating })
+        setReview({ ...review, rating: rating })
     }
 
+    if (submitting) return <Loading />
     return (
         <section className="book-review">
-            <h3>Add Review</h3>
             <form className="book-review-form" onSubmit={handleSubmission}>
                 <label>
                     <span>Full Name</span>
                     <input required className="input" name="fullname" placeholder="Full Name" value={review.fullname} onChange={handleChange} />
                 </label>
-                <span>Rating</span>
-                <div style={{ display: "flex", gap: "1em" }}>
-                    {ratings.map((_, i) => <div role="button" style={{}} key={i} onClick={() => handleRating(i + 1)}><img src="/assets/img/star.png" className={`star ${(i < review.rating && review.rating > 0) ? "star-active" : ""}`} /></div>)}
-                </div>
+                <label ref={ratingRef}>
+                    <span style={{ marginBottom: ".5em" }}>Rating</span>
+                    <StarsRating onRating={handleRating} rating={review.rating} />
+                </label>
                 <label>
                     <span>Rate At</span>
                     <input required className="input" name="readAt" placeholder="Read At" value={review.readAt} type="date" onChange={handleChange} />

@@ -2,8 +2,8 @@ import { Loading } from "../../cmps/Loading.jsx";
 import { calcFullPrice, fixedPrice, getBookTags } from "../../services/book-utils.service.js";
 import { bookService, getSiblingBooks, } from "../../services/book.service.js";
 import { capitalize } from "../../services/util.service.js";
-import { AddReview } from "./cmps/AddReview.jsx";
 import { BookTag } from "./cmps/BookTag.jsx";
+import { ReviewIndex } from "./cmps/ReviewIndex.jsx";
 
 const { useParams, useNavigate } = ReactRouterDOM;
 const { useState, useEffect } = React;
@@ -86,7 +86,7 @@ export function BookDetails() {
                     <button onClick={handleNextBook}>Next</button>
                 </React.Fragment>
             }
-            <AddReview />
+            <ReviewIndex bookId={book.id} />
         </section >
     )
 }   

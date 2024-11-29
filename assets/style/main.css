@@ -274,11 +274,20 @@ a.active {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	background-color: #f1f1f170;
+	padding: 2em 1em;
+	border-radius: 20px;
 }
 
 .book-review-form {
+	width: 100%;
 	display: grid;
 	gap: 1em;
+}
+
+.book-review-form input,
+.book-review-form textarea {
+	width: 100%;
 }
 
 .star {
@@ -368,6 +377,35 @@ a.active {
 
 .light-reader {
 	background-color: #00800099;
+}
+
+.stars-required {
+	outline: #ff000050 solid 1px;
+	background-color: #ff000005;
+	width: fit-content;
+	padding: .5em;
+	border-radius: 5px;
+}
+
+.review-preview {
+	border-radius: 20px;
+	margin-bottom: 2em;
+	padding: 1em;
+	background-color: #f1f1f170;
+}
+
+.book-review-index h3 {
+	margin-top: 1em;
+}
+
+.review-preview-header {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+}
+
+.star:nth-child(3):hover {
+	opacity: 1;
 }
 
 .book-preview .sale {

@@ -2,7 +2,6 @@ import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 
 const BOOK_KEY = 'bookDB'
-const REVIEW_KEY = "reviewDB"
 _createBooks()
 
 export const bookService = {
