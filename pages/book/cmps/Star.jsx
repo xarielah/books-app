@@ -3,6 +3,6 @@ export function Star(props) {
         {...props}
         role="button"
         style={{ cursor: "pointer" }}
-        src="/assets/img/star.png"
+        src="./assets/img/star.png"
     />)
 }   
