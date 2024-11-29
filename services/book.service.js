@@ -2,6 +2,7 @@ import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 
 const BOOK_KEY = 'bookDB'
+const REVIEW_KEY = "reviewDB"
 _createBooks()
 
 export const bookService = {
@@ -10,10 +11,15 @@ export const bookService = {
     remove,
     save,
     getDefaultFilter,
+    saveReview
 }
 
 // For Debug (easy access from console):
 // window.cs = bookservice
+
+function saveReview(bookId, review) {
+    return storageService.post(REVIEW_KEY, bookId, review)
+}
 
 function query(filterBy = {}) {
     return storageService.query(BOOK_KEY)
